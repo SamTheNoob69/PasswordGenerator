@@ -1,12 +1,19 @@
+import random
+import time
+import sys
+import os.path
+import os
+import subprocess
+import sys
+
 try:
-    import random
-    import time
-    import sys
     import pyperclip as pc
-    import os.path
-    import os
-except:
-    print("Missing modules, Please download required modules.")
+except ImportError:
+    print("Missing PyperClip Module, Downloading will begin soon...")
+    time.sleep(3)
+    subprocess.check_call([sys.executable, "-m", "pip", "install", 'pyperclip'])
+finally:
+    import pyperclip as pc
 
 # This changes the terminal size.
 try:
