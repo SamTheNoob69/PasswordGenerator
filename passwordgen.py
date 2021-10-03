@@ -15,9 +15,18 @@ except ImportError:
 finally:
     import pyperclip as pc
 
+try:
+    from termcolor import colored, cprint
+except ImportError:
+    print("Missing TermColor Module, Downloading will begin soon...")
+    time.sleep(3)
+    subprocess.check_call([sys.executable, "-m", "pip", "install", 'termcolor'])
+finally:
+    from termcolor import colored, cprint
+
 # This changes the terminal size.
 try:
-    cmd = 'mode 75,10'
+    cmd = 'mode 100,10'
     os.system(cmd)
 except:
     pass
@@ -33,7 +42,7 @@ except:
 lower = "abcdefghijklmnopqrstuvwxyz"
 upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 num = "0123456789"
-symbol = "!@#$%^&*()_+"
+symbol = "!@#$%^&*()"
 
 all = lower + upper + num + symbol
 
@@ -60,16 +69,37 @@ else:
 """
 
 # This asks for some information.
-email = input("Email for your account: ")
+while True:
+    email = input("Email for your account: ")
+    if not "@" in email:
+        print(f"({email}): is not a real email.")
+    elif not "." in email:
+        print(f"({email}): is not a real email.")
+    else:
+        break
 password = "".join(random.sample(all, length))
 
 # This asks for a website that you wanna store email:pass to it.
 print("Please enter 2 letters of the website.")
-website = input("Website: ")
+while True:
+    website = input("Website: ")
+    if len(website) > 2:
+        print(f"({website}): is not 2 letters.")
+    elif len(website) < 2:
+        print(f"({website}): is not 2 letters.")
+    else:
+        break
+
 
 # This copies the generated password and saves your data in the website you want in a plain text.
-print("Your password is copied to clipbaord" + f" And saved your data in {website}.txt")
+import pathlib
+currentpath = pathlib.Path(__file__).parent.resolve()
+
+
+print("Your password is copied to clipbaord," + f" And saved your data in:")
+cprint(f'{currentpath}\Saved Passwords\{website}.txt"', 'red')
 pc.copy(password)
+
 
 filepath = os.path.join('./Saved Passwords', f'{website}.txt')
 if not os.path.exists('./Saved Passwords'):
@@ -78,4 +108,4 @@ f = open(filepath, "a")
 f.write(email + " : " + password + '\n')
 
 # End.
-time.sleep(3)
+time.sleep(5)
