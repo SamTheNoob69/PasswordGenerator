@@ -83,9 +83,7 @@ password = "".join(random.sample(all, length))
 print("Please enter 2 letters of the website.")
 while True:
     website = input("Website: ")
-    if len(website) > 2:
-        print(f"({website}): is not 2 letters.")
-    elif len(website) < 2:
+    if len(website) != 2:
         print(f"({website}): is not 2 letters.")
     else:
         break
