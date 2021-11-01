@@ -93,17 +93,17 @@ while True:
 import pathlib
 currentpath = pathlib.Path(__file__).parent.resolve()
 
-
-print("Your password is copied to clipbaord," + f" And saved your data in:")
-cprint(f'{currentpath}\Saved Passwords\{website}.txt"', 'red')
-pc.copy(password)
-
-
 filepath = os.path.join('./Saved Passwords', f'{website}.txt')
 if not os.path.exists('./Saved Passwords'):
     os.makedirs('./Saved Passwords')
 f = open(filepath, "a")
 f.write(email + " : " + password + '\n')
+
+pc.copy(password)
+print("Your password is copied to clipbaord," + f" And saved your data in:")
+cprint(f'{currentpath}\Saved Passwords\{website}.txt"', 'red')
+
+
 
 # End.
 time.sleep(5)
